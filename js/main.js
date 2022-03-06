@@ -183,7 +183,7 @@ window.onscroll = function () {
     }
 
     // Show The Arrow-up If Window scrollY Is >= 700 
-    if (this.pageYOffset >= 700 && document.querySelector(".nav-bullets").style.display == "none") {
+    if (this.pageYOffset >= 700 && document.querySelector(".nav-bullets").style.display != "block") {
 
         myarrow.style.display = "block"
 
@@ -191,7 +191,18 @@ window.onscroll = function () {
         myarrow.style.display = "none"
     }
 
+
+
+    if (this.pageYOffset >= 100 && document.querySelector(".nav-bullets").style.display != "block") {
+
+        document.querySelector(".header-area").classList.add("background")
+
+    } else {
+        document.querySelector(".header-area").classList.remove("background")
+    }
+
 }
+
 
 
 myarrow.onclick = function () {
@@ -297,9 +308,9 @@ function scrollToElement(elements) {
             e.preventDefault();
 
             handelactive(e);
-            
+
             list.classList.toggle("open");
-            
+
             menu.classList.toggle("menu-active")
 
             document.querySelector(e.target.dataset.section).scrollIntoView({
@@ -338,18 +349,18 @@ if (bulletlocalstorage !== null) {
 
         span.classList.remove("active");
 
-        if (bulletlocalstorage === "block") {
+        if (bulletlocalstorage === "none") {
 
-            navbullet.style.display = 'block';
+            navbullet.style.display = 'none';
 
-            document.querySelector(".bullets-option .yes").classList.add("active");
+            document.querySelector(".bullets-option .no").classList.add("active");
 
 
 
 
         } else {
-            navbullet.style.display = 'none';
-            document.querySelector(".bullets-option .no").classList.add("active");
+            navbullet.style.display = 'block';
+            document.querySelector(".bullets-option .yes").classList.add("active");
 
 
 
@@ -361,20 +372,21 @@ if (bulletlocalstorage !== null) {
 
 
 bulletsspan.forEach(span => {
+    
 
     span.addEventListener("click", (e) => {
 
         settings_box.classList.toggle("show");
 
-        if (span.dataset.display === "show") {
+        if (span.dataset.display === "hide") {
 
-            navbullet.style.display = 'block';
+            navbullet.style.display = 'none';
 
-            localStorage.setItem("bullets", "block")
+            localStorage.setItem("bullets", "none")
 
         } else {
-            navbullet.style.display = 'none';
-            localStorage.setItem("bullets", "none")
+            navbullet.style.display = 'block';
+            localStorage.setItem("bullets", "block")
         }
 
         handelactive(e)
